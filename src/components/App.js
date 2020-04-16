@@ -56,6 +56,7 @@ const columns = [
         { name: "sea flakes", brand: "Krill", pet: "fish", price: 3 }
       ],
       isOpen: false,
+      rowToEdit: null
     };
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
       this.setState((state) => {
@@ -99,17 +100,41 @@ const columns = [
         }
 			};
 			return sortDirection === "NONE" ? this.state.initialRows : [...initialRows].slice().sort(comparer);
-		};
+    };
     
+    // working on method to display numbers as money (string)
     parseRows = (i) =>{
       const temp = this.state.rows[i];
       console.log(temp)  // can't return properties :(
       //temp.price = "$" + temp.price; 
       return temp;
     }
-    // 
-    onResponse(){
-      
+
+    // working on the form part 
+    onResponse = (childData) =>{
+      this.setState({isOpen: childData});
+    }
+
+    // may need to refactor sorting of rows
+    onDelete = (rowIndex) => {
+      const rows = [...this.state.rows];
+      rows.splice(rowIndex, 1); //
+      this.setState({ isOpen: false, rows: rows, rowToEdit: null });
+    }
+
+
+    deleteRow = (column, row) => {
+      const cellActions = [
+        {
+          icon: <span className="delete controls"> Delete </span>,
+          callback: () => {
+            const index = this.state.rows.indexOf(row)
+            console.log("index is: " + index)
+            this.setState({isOpen: true, rowToEdit: index});
+          }
+        }
+      ];
+      return column.key === "edit" ? cellActions : null;
     }
 
 
@@ -126,13 +151,18 @@ const columns = [
           rowsCount={this.state.rows.length}
           onGridRowsUpdated={this.onGridRowsUpdated}
           enableCellsSelect={true}
-					getCellActions={this.getCellActions}
+					getCellActions={this.deleteRow}
 					// doesn't work
 					onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
         />
 
           <button onClick={(e) => this.setState({isOpen: true}) }>test</button>
-          <ApprovalCard isOpen={this.state.isOpen} onResponse={this.onResponse}/>
+          <ApprovalCard 
+            isOpen={this.state.isOpen} 
+            onResponse={this.onResponse} 
+            rowToEdit={this.state.rowToEdit}
+            onDelete={this.onDelete}
+          />
         </div>
       );
     }

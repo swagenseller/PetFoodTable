@@ -11,50 +11,26 @@ const columns = [
     { key: "pet", name: "Food For", editable: false, sortable: true },
     { key: "price", name: "Price", editable: false, sortable: true }
   ];
-	
-	const newRows = [
-		{ name: "testminichunks", brand: "Lambs", pet: "dogs", price: "$3" },
-		{
-			name: "HE Thinks he is people",
-			brand: "Archer",
-			pet: "ocelots",
-			price: "$20"
-		},
-		{ name: "will", brand: "Blue Beef", pet: "dogs", price: "$7" },
-		{ name: "celery", brand: "N/A", pet: "rabbits", price: "$2" },
-		{ name: "Shrimpy Shrimp", brand: "Venus", pet: "cats", price: "$6" },
-		{ name: "sea flakes", brand: "Krill", pet: "fish", price: "$3" }
-	]
+  
+  const initRows =  [
+    { name: "minichunks", brand: "Lambs", pet: "dogs", price: 3 },
+    {
+      name: "HE Thinks he is people",
+      brand: "Archer",
+      pet: "ocelots",
+      price: 20
+    },
+    { name: "Wilderness", brand: "Blue Beef", pet: "dogs", price: 7 },
+    { name: "carrots", brand: "N/A", pet: "rabbits", price: 2 },
+    { name: "Shrimpy Shrimp", brand: "Venus", pet: "cats", price: 6 },
+    { name: "sea flakes", brand: "Krill", pet: "fish", price: 3 }
+  ];
 
   
   class App extends React.Component {
     state = {
-      rows: [
-        { name: "minichunks", brand: "Lambs", pet: "dogs", price: 3 },
-        {
-          name: "HE Thinks he is people",
-          brand: "Archer",
-          pet: "ocelots",
-          price: 20
-        },
-        { name: "Wilderness", brand: "Blue Beef", pet: "dogs", price: 7 },
-        { name: "carrots", brand: "N/A", pet: "rabbits", price: 2 },
-        { name: "Shrimpy Shrimp", brand: "Venus", pet: "cats", price: 6 },
-        { name: "sea flakes", brand: "Krill", pet: "fish", price: 3 }
-      ],
-      initialRows : [
-        { name: "minichunks", brand: "Lambs", pet: "dogs", price: 3 },
-        {
-          name: "HE Thinks he is people",
-          brand: "Archer",
-          pet: "ocelots",
-          price: 20
-        },
-        { name: "Wilderness", brand: "Blue Beef", pet: "dogs", price: 7 },
-        { name: "carrots", brand: "N/A", pet: "rabbits", price: 2 },
-        { name: "Shrimpy Shrimp", brand: "Venus", pet: "cats", price: 6 },
-        { name: "sea flakes", brand: "Krill", pet: "fish", price: 3 }
-      ],
+      rows: initRows,
+      initialRows : initRows,
       isOpen: false,
       rowToEdit: null
     };
@@ -67,14 +43,14 @@ const columns = [
         return rows;
       });
     };
-
+    // no longer used, immediately deletes rows when icon clicked
     getCellActions = (column, row) => {
       const cellActions = [
         {
           icon: <span className="delete controls"> Delete </span>,
           callback: () => {
             const rows = [...this.state.rows];
-            rows.splice(row.index, 1); //
+            rows.splice(row.index, 1); 
             this.setState({ rows: rows });
           }
         }
@@ -117,8 +93,10 @@ const columns = [
 
     // may need to refactor sorting of rows
     onDelete = (rowIndex) => {
+      // removes from currently viewed rows
       const rows = [...this.state.rows];
       rows.splice(rowIndex, 1); //
+      // removes from 
       this.setState({ isOpen: false, rows: rows, rowToEdit: null });
     }
 
@@ -152,7 +130,6 @@ const columns = [
           onGridRowsUpdated={this.onGridRowsUpdated}
           enableCellsSelect={true}
 					getCellActions={this.deleteRow}
-					// doesn't work
 					onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
         />
 

@@ -147,7 +147,7 @@ const columns = [
 					onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
         />
 
-          <button onClick={(e) => this.setState({isOpen: true}) }>test</button>
+          
           <ApprovalCard 
             isOpen={this.state.isOpen} 
             onResponse={this.onResponse} 

@@ -32,7 +32,8 @@ const columns = [
       rows: initRows,
       initialRows : initRows,
       isOpen: false,
-      rowToEdit: null
+      rowToEdit: null,
+      iRowToEdit: null,
     };
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
       this.setState((state) => {
@@ -91,13 +92,21 @@ const columns = [
       this.setState({isOpen: childData});
     }
 
-    // may need to refactor sorting of rows
-    onDelete = (rowIndex) => {
-      // removes from currently viewed rows
+   
+    onDelete = (rowIndex, iRowIndex) => {
+      // removes from this.state.rows
       const rows = [...this.state.rows];
       rows.splice(rowIndex, 1); //
-      // removes from 
-      this.setState({ isOpen: false, rows: rows, rowToEdit: null });
+      // removes from initialRows
+      const iRows = [...this.state.rows];
+      iRows.splice(iRowIndex, 1)
+      this.setState({ 
+        isOpen: false, 
+        rows: rows, 
+        initialRows: iRows, 
+        rowToEdit: null, 
+        iRowToEdit: null 
+      });
     }
 
 
@@ -107,8 +116,13 @@ const columns = [
           icon: <span className="delete controls"> Delete </span>,
           callback: () => {
             const index = this.state.rows.indexOf(row)
-            console.log("index is: " + index)
-            this.setState({isOpen: true, rowToEdit: index});
+            //console.log("index is: " + index)
+            const iRowIndex = this.state.initialRows.indexOf(row)
+            this.setState({
+              isOpen: true, 
+              rowToEdit: index, 
+              iRowToEdit: iRowIndex
+            });
           }
         }
       ];
@@ -138,6 +152,7 @@ const columns = [
             isOpen={this.state.isOpen} 
             onResponse={this.onResponse} 
             rowToEdit={this.state.rowToEdit}
+            iRowToEdit={this.state.iRowToEdit}
             onDelete={this.onDelete}
           />
         </div>

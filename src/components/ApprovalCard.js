@@ -8,7 +8,7 @@ class ApprovalCard extends React.Component{
     }
     delete = () =>{
         console.log("inside approval card: " + this.props.rowToEdit);
-        this.props.onDelete(this.props.rowToEdit);
+        this.props.onDelete(this.props.rowToEdit, this.props.iRowToEdit);
     }
     render(){
         if(!this.props.isOpen){

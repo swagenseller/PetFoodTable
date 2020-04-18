@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDataGrid from 'react-data-grid';
 import ReactDOM from 'react-dom';
 import ApprovalCard from './ApprovalCard';
+import './../theme.css'
+import ModalContent from './ModalContent';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // come up with a away to not be hard coding this
 const columns = [
@@ -34,6 +37,7 @@ const columns = [
       isOpen: false,
       rowToEdit: null,
       iRowToEdit: null,
+      test: false
     };
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
       this.setState((state) => {
@@ -130,7 +134,13 @@ const columns = [
     }
 
 
-		
+		testModal = () => {
+      this.setState({test: true});
+    }
+
+    testCancel = (show) =>{
+      this.setState({test: show})
+    }
 		
     
     // necessary
@@ -147,10 +157,18 @@ const columns = [
 					onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
         />
 
-          
+         {/*} 
           <ApprovalCard 
             isOpen={this.state.isOpen} 
             onResponse={this.onResponse} 
+            rowToEdit={this.state.rowToEdit}
+            iRowToEdit={this.state.iRowToEdit}
+            onDelete={this.onDelete}
+      /> */}
+          <button onClick={this.testModal}>test</button>
+          <ModalContent
+            test={this.state.test}
+            testCancel= {this.testCancel}
             rowToEdit={this.state.rowToEdit}
             iRowToEdit={this.state.iRowToEdit}
             onDelete={this.onDelete}

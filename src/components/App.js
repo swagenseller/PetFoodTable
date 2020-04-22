@@ -36,8 +36,7 @@ const columns = [
       initialRows : initRows,
       isOpen: false,
       rowToEdit: null,
-      iRowToEdit: null,
-      test: false
+      iRowToEdit: null
     };
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
       this.setState((state) => {
@@ -113,8 +112,9 @@ const columns = [
       });
     }
 
-
+// rename this to select row
     deleteRow = (column, row) => {
+      
       const cellActions = [
         {
           icon: <span className="delete controls"> Delete </span>,
@@ -134,13 +134,7 @@ const columns = [
     }
 
 
-		testModal = () => {
-      this.setState({test: true});
-    }
-
-    testCancel = (show) =>{
-      this.setState({test: show})
-    }
+	
 		
     
     // necessary
@@ -157,18 +151,17 @@ const columns = [
 					onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
         />
 
-         {/*} 
-          <ApprovalCard 
+         
+          {/*<ApprovalCard 
             isOpen={this.state.isOpen} 
             onResponse={this.onResponse} 
             rowToEdit={this.state.rowToEdit}
             iRowToEdit={this.state.iRowToEdit}
             onDelete={this.onDelete}
-      /> */}
-          <button onClick={this.testModal}>test</button>
+          /> */}
           <ModalContent
-            test={this.state.test}
-            testCancel= {this.testCancel}
+            isOpen={this.state.isOpen}
+            onResponse={this.onResponse}  
             rowToEdit={this.state.rowToEdit}
             iRowToEdit={this.state.iRowToEdit}
             onDelete={this.onDelete}

@@ -11,17 +11,13 @@ class ApprovalCard extends React.Component{
         this.props.onDelete(this.props.rowToEdit, this.props.iRowToEdit);
     }
     render(){
-        if(!this.props.isOpen){
-            return null;
-        }
-        else {
             return (
                 <div>
                     <button onClick={this.delete}>Delete</button>
                     <button onClick={this.cancel}>Cancel</button>
                 </div>
-            )
-        }
+            );
+
     }
   
     

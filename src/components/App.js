@@ -5,6 +5,7 @@ import ApprovalCard from './ApprovalCard';
 import './../theme.css'
 import ModalContent from './ModalContent';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ControlledInput from './ControlledInput';
 
 // come up with a away to not be hard coding this
 const columns = [
@@ -30,13 +31,17 @@ const columns = [
   ];
 
   
+  
   class App extends React.Component {
     state = {
       rows: initRows,
       initialRows : initRows,
       isOpen: false,
+      selectRow: null,
       rowToEdit: null,
-      iRowToEdit: null
+      iRowToEdit: null,
+      title: '',
+      
     };
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
       this.setState((state) => {
@@ -48,7 +53,7 @@ const columns = [
       });
     };
     // no longer used, immediately deletes rows when icon clicked
-    getCellActions = (column, row) => {
+   /* getCellActions = (column, row) => {
       const cellActions = [
         {
           icon: <span className="delete controls"> Delete </span>,
@@ -60,7 +65,46 @@ const columns = [
         }
       ];
       return column.key === "edit" ? cellActions : null;
-    };
+    }; */
+
+    getCellActions = (column, row) => {
+      const cellActions = [
+        {
+          icon: <span className="primary">Edit</span>,
+          callback: () =>{
+            const index = this.state.rows.indexOf(row)
+            //console.log("index is: " + index)
+            const iRowIndex = this.state.initialRows.indexOf(row)
+            this.setState({
+              isOpen: true,
+              selectRow: row,  
+              rowToEdit: index, 
+              iRowToEdit: iRowIndex,
+              title: "edit"
+            });
+          }
+    
+        },
+        {
+          icon: <span className="delete controls"> Delete </span>,
+          callback: () => {
+            const index = this.state.rows.indexOf(row)
+            //console.log("index is: " + index)
+            const iRowIndex = this.state.initialRows.indexOf(row)
+            this.setState({
+              isOpen: true,
+              selectRow: row,  
+              rowToEdit: index, 
+              iRowToEdit: iRowIndex,
+              title: "delete",
+               
+            });
+          }
+        }
+
+      ]
+      return column.key === "edit" ? cellActions : null; 
+    }
 
 		sortRows = (sortColumn, sortDirection) =>  {
 			const initialRows = [...this.state.rows];
@@ -92,7 +136,13 @@ const columns = [
 
     // working on the form part 
     onResponse = (childData) =>{
-      this.setState({isOpen: childData});
+      this.setState({
+        isOpen: childData,
+        selectRow: null, 
+        rowToEdit: null, 
+        iRowToEdit: null,
+        title: '',
+      });
     }
 
    
@@ -107,13 +157,20 @@ const columns = [
         isOpen: false, 
         rows: rows, 
         initialRows: iRows, 
+        selectRow: null, 
         rowToEdit: null, 
-        iRowToEdit: null 
+        iRowToEdit: null,
+        title: '',
+        
       });
     }
 
+    onEdit = (rowIndex, iRowIndex) => {
+
+    }
+
 // rename this to select row
-    deleteRow = (column, row) => {
+ /*   deleteRow = (column, row) => {
       
       const cellActions = [
         {
@@ -123,16 +180,17 @@ const columns = [
             //console.log("index is: " + index)
             const iRowIndex = this.state.initialRows.indexOf(row)
             this.setState({
-              isOpen: true, 
+              isOpen: true,
+              selectRow: row,  
               rowToEdit: index, 
-              iRowToEdit: iRowIndex
+              iRowToEdit: iRowIndex, 
+               
             });
           }
         }
       ];
       return column.key === "edit" ? cellActions : null;
-    }
-
+    }*/
 
 	
 		
@@ -147,7 +205,7 @@ const columns = [
           rowsCount={this.state.rows.length}
           onGridRowsUpdated={this.onGridRowsUpdated}
           enableCellsSelect={true}
-					getCellActions={this.deleteRow}
+					getCellActions={this.getCellActions}
 					onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
         />
 
@@ -161,10 +219,14 @@ const columns = [
           /> */}
           <ModalContent
             isOpen={this.state.isOpen}
-            onResponse={this.onResponse}  
+            onResponse={this.onResponse}
+            selectRow={this.state.selectRow}  
             rowToEdit={this.state.rowToEdit}
             iRowToEdit={this.state.iRowToEdit}
             onDelete={this.onDelete}
+            title={this.state.title}
+
+
           />
         </div>
       );

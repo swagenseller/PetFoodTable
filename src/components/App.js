@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDataGrid from 'react-data-grid';
 import ReactDOM from 'react-dom';
-import ApprovalCard from './ApprovalCard';
 import './../theme.css'
 import ModalContent from './ModalContent';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ControlledInput from './ControlledInput';
+
 
 // come up with a away to not be hard coding this
 const columns = [
@@ -210,13 +209,7 @@ const columns = [
         />
 
          
-          {/*<ApprovalCard 
-            isOpen={this.state.isOpen} 
-            onResponse={this.onResponse} 
-            rowToEdit={this.state.rowToEdit}
-            iRowToEdit={this.state.iRowToEdit}
-            onDelete={this.onDelete}
-          /> */}
+         
           <ModalContent
             isOpen={this.state.isOpen}
             onResponse={this.onResponse}

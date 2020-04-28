@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Modal, Table } from 'react-bootstrap';
 import ControlledInput from './ControlledInput';
+import Footer from './Footer';
+
 
 //function BaseModal(props){
 const BaseModal = (props) => {	
@@ -26,53 +28,44 @@ class ModalContent extends Component {
 	constructor(props){
 		super(props);
 		//this.setTitle = this.setTitle.bind(this);
-		this.testChange = this.testChange.bind(this);
 		this.state = {
 			title: '',
 			message: null,
 			selectRow: [],
 			mBody: null,  // Modal Body
-			test: "test"
 	
 		}
 		this.handleChange = this.handleChange.bind(this);
-		this.testChange = this.testChange.bind(this);
+
 	}
 	
 
 	componentDidUpdate(prevProps){
-		//console.log("update called ")
+	
 		if(this.props.isOpen !== prevProps.isOpen){
-			//this.setState({selectRow: this.props.selectRow});
 			this.setTitle();
 		}
 	}
 	// fixes the initial selectRow
 	componentWillReceiveProps(nextProps){
-		/*console.log("current")
-		console.log(this.props.selectRow);
-		console.log("nextProps")
-		console.log(nextProps.selectRow)*/
 		if(this.props.selectRow !== nextProps.selectRow){
-			this.setState({selectRow: nextProps.selectRow, test: "another test"});
+			this.setState({selectRow: nextProps.selectRow});
 		
 		}
 	}
 
 	handleChange(event){ 
-		// not working
+	
 		const {selectRow} = {...this.state};
 		const currentState = selectRow;
 		const {name, value} = event.target;
 		currentState[name] = value;
 		this.setState({selectRow: currentState});
-		//this.setState({...this.state.selectRow, name: event.target.value});
+	
 		
 	
 	}
-	testChange(event){
-		this.setState({test: event.target.value});
-	}
+	
 	
 
 	setTitle(){
@@ -110,6 +103,11 @@ class ModalContent extends Component {
 	delete = () => {
 		this.props.onDelete(this.props.rowToEdit, this.props.iRowToEdit);
 	}
+	
+	edit = () =>{
+		console.log("clicked this button")
+		this.onClose();  // might not work
+	}
 
 	// refactor after testing
 
@@ -127,7 +125,7 @@ class ModalContent extends Component {
 						<Modal.Header closeButton onClick={this.onClose}>
 							<Modal.Title>{this.state.title}</Modal.Title>
 						</Modal.Header>
-
+						{/*Do a crappy conditional if for now for deleting and editing*/ }
 						<Modal.Body>
 							<p>{this.state.message}</p>
 							<Table striped bordered size="sm">
@@ -187,14 +185,17 @@ class ModalContent extends Component {
 									
 								</tbody>
 							</Table>
-						</Modal.Body>
+						</Modal.Body> 
 						
 
-						<Modal.Footer>
+						{/*<Modal.Footer>
 							<Button variant="secondary" onClick={this.onClose}>cancel</Button>
 							<Button variant="danger" onClick={this.delete}>delete</Button>
-						</Modal.Footer>
+						</Modal.Footer>*/}
 
+						<Footer onClose={this.onClose} edit={this.edit} title={this.props.title} delete={this.delete}/>
+						
+								
 					</Modal>
 					
 				</aside>,

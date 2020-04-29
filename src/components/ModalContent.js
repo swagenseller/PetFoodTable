@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Modal, Table } from 'react-bootstrap';
-import ControlledInput from './ControlledInput';
 import Footer from './Footer';
 
 
-//function BaseModal(props){
+//function BaseModal(props){ // unused
 const BaseModal = (props) => {	
 	return(
 		<Modal
@@ -62,8 +61,6 @@ class ModalContent extends Component {
 		currentState[name] = value;
 		this.setState({selectRow: currentState});
 	
-		
-	
 	}
 	
 	
@@ -75,21 +72,18 @@ class ModalContent extends Component {
 				title: "Edit Row",
 				message: null,
 				
-				
 			});
 		} else if (this.props.title === "delete"){
 			this.setState({
 				title: "Delete Row", 
 				message: "Are you sure you want to delete this row?",
 				mBody: (
-				
 					<tr>
 						<td>{this.props.selectRow.name}</td>
 						<td>{this.props.selectRow.brand}</td>
 						<td>{this.props.selectRow.pet}</td>
 						<td>{this.props.selectRow.price}</td>
-					</tr>
-					
+					</tr>	
 				),
 			});
 		}
@@ -97,16 +91,19 @@ class ModalContent extends Component {
 
 	onClose = () => {
 		//this.setState({})
-		this.props.onResponse(false);
+		this.props.onResponse();
 
 	}
 	delete = () => {
 		this.props.onDelete(this.props.rowToEdit, this.props.iRowToEdit);
 	}
-	
+
 	edit = () =>{
-		console.log("clicked this button")
-		this.onClose();  // might not work
+		//console.log("clicked this button")
+		
+		//this.props.onGridRowsUpdated(this.props.rowToEdit, this.props.rowToEdit + 1,this.state.selectRow )
+		//this.props.onResponse();
+		this.props.onEdit(this.props.rowToEdit, this.props.iRowToEdit, this.state.selectRow);
 	}
 
 	// refactor after testing
@@ -193,8 +190,12 @@ class ModalContent extends Component {
 							<Button variant="danger" onClick={this.delete}>delete</Button>
 						</Modal.Footer>*/}
 
-						<Footer onClose={this.onClose} edit={this.edit} title={this.props.title} delete={this.delete}/>
-						
+						<Footer 
+							onClose={this.onClose} 
+							edit={this.edit} 
+							delete={this.delete}
+							title={this.props.title} 
+						/>	
 								
 					</Modal>
 					

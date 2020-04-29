@@ -32,16 +32,20 @@ const columns = [
   
   
   class App extends React.Component {
-    state = {
-      rows: initRows,
-      initialRows : initRows,
-      isOpen: false,
-      selectRow: null,
-      rowToEdit: null,
-      iRowToEdit: null,
-      title: '',
-      
-    };
+    constructor(props){
+      super(props);
+
+      this.state = {
+        rows: initRows,
+        initialRows : initRows,
+        isOpen: false,
+        selectRow: null,
+        rowToEdit: null,
+        iRowToEdit: null,
+        title: '',
+        
+      };
+    }
     onGridRowsUpdated = ({ fromRow, toRow, updated }) => {
       this.setState((state) => {
         const rows = state.rows.slice();
@@ -134,9 +138,9 @@ const columns = [
     }
 
     // working on the form part 
-    onResponse = (childData) =>{
+    onResponse = () =>{
       this.setState({
-        isOpen: childData,
+        isOpen: false,
         selectRow: null, 
         rowToEdit: null, 
         iRowToEdit: null,
@@ -150,21 +154,44 @@ const columns = [
       const rows = [...this.state.rows];
       rows.splice(rowIndex, 1); //
       // removes from initialRows
-      const iRows = [...this.state.rows];
+      const iRows = [...this.state.initialRows];
       iRows.splice(iRowIndex, 1)
       this.setState({ 
-        isOpen: false, 
+      /*  isOpen: false, */
         rows: rows, 
         initialRows: iRows, 
-        selectRow: null, 
+      /*  selectRow: null, 
         rowToEdit: null, 
         iRowToEdit: null,
-        title: '',
+        title: '',*/
         
       });
+      this.onResponse();
     }
-
-    onEdit = (rowIndex, iRowIndex) => {
+    
+    // takes to long for rerender to take effect?
+    // need to use Array.map to remap the arrays
+    onEdit = (rowIndex, iRowIndex, newRow) => {
+      const rows = [...this.state.rows];
+      rows[rowIndex] = newRow;
+      this.setState({rows})
+      //const iRows = [...this.state.initialRows];
+      //iRows[iRowIndex] = newRow;
+     /* this.setState(state => {
+        const list = state.rows.map((row, i) => {
+          if(i === rowIndex){
+            return newRow
+          } else {
+            return row;
+          }
+        });
+        return list;
+      }) */
+      console.log(this.state.rows);
+      //this.onGridRowsUpdated(rowIndex, rowIndex+1, newRow);
+      this.onResponse();
+      
+      
 
     }
 
@@ -194,32 +221,29 @@ const columns = [
 	
 		
     
-    // necessary
     render() {
       return (
         <div>
-        <ReactDataGrid
-          columns={columns}
-          rowGetter= {(i) => this.state.rows[i]}
-          rowsCount={this.state.rows.length}
-          onGridRowsUpdated={this.onGridRowsUpdated}
-          enableCellsSelect={true}
-					getCellActions={this.getCellActions}
-					onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
-        />
-
-         
-         
+          <ReactDataGrid
+            columns={columns}
+            rowGetter= {(i) => this.state.rows[i]}
+            rowsCount={this.state.rows.length}
+            onGridRowsUpdated={this.onGridRowsUpdated}
+            enableCellsSelect={true}
+            getCellActions={this.getCellActions}
+            onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
+          />
+          
           <ModalContent
-            isOpen={this.state.isOpen}
-            onResponse={this.onResponse}
-            selectRow={this.state.selectRow}  
-            rowToEdit={this.state.rowToEdit}
-            iRowToEdit={this.state.iRowToEdit}
-            onDelete={this.onDelete}
-            title={this.state.title}
-
-
+              isOpen={this.state.isOpen}
+              onResponse={this.onResponse}
+              selectRow={this.state.selectRow}  
+              rowToEdit={this.state.rowToEdit}
+              iRowToEdit={this.state.iRowToEdit}
+              onDelete={this.onDelete}
+              title={this.state.title}
+              onEdit={this.onEdit}
+              /*onGridRowsUpdated={this.onGridRowsUpdated}*/
           />
         </div>
       );

@@ -17,8 +17,6 @@ const BaseModal = (props) => {
 
 		</Modal>
 	);
-	
-
 }
 
 // will need to refactor this
@@ -31,7 +29,6 @@ class ModalContent extends Component {
 			title: '',
 			message: null,
 			selectRow: [],
-			mBody: null,  // Modal Body
 	
 		}
 		this.handleChange = this.handleChange.bind(this);
@@ -45,7 +42,8 @@ class ModalContent extends Component {
 			this.setTitle();
 		}
 	}
-	// fixes the initial selectRow
+	// fixes the initial selectRow 
+	// deappraciated 
 	componentWillReceiveProps(nextProps){
 		if(this.props.selectRow !== nextProps.selectRow){
 			this.setState({selectRow: nextProps.selectRow});
@@ -63,51 +61,43 @@ class ModalContent extends Component {
 	
 	}
 	
-	
-
+	// sets the state for Modal depending on whether the user clicked 
+	// edit or delete button
 	setTitle(){
 		
 		if(this.props.title === "edit") {
 			this.setState({
 				title: "Edit Row",
 				message: null,
-				
 			});
 		} else if (this.props.title === "delete"){
 			this.setState({
 				title: "Delete Row", 
 				message: "Are you sure you want to delete this row?",
-				mBody: (
-					<tr>
-						<td>{this.props.selectRow.name}</td>
-						<td>{this.props.selectRow.brand}</td>
-						<td>{this.props.selectRow.pet}</td>
-						<td>{this.props.selectRow.price}</td>
-					</tr>	
-				),
 			});
 		}
 	}
 
+	// tells parent App.js to close the Modal
 	onClose = () => {
-		//this.setState({})
 		this.props.onResponse();
 
 	}
+
+	// tells parent App.js to delete the row
 	delete = () => {
 		this.props.onDelete(this.props.rowToEdit, this.props.iRowToEdit);
 	}
 
+	// tells parent App.js to edit the row
 	edit = () =>{
 		//console.log("clicked this button")
-		
 		//this.props.onGridRowsUpdated(this.props.rowToEdit, this.props.rowToEdit + 1,this.state.selectRow )
 		//this.props.onResponse();
 		this.props.onEdit(this.props.rowToEdit, this.props.iRowToEdit, this.state.selectRow);
 	}
 
-	// refactor after testing
-
+	// need to refactor
 	render() {
 		if (!this.props.isOpen) {
 			return null;
@@ -117,7 +107,6 @@ class ModalContent extends Component {
 					<Modal
 						show={this.props.isOpen}
 						onHide={this.onClose}
-
 					>
 						<Modal.Header closeButton onClick={this.onClose}>
 							<Modal.Title>{this.state.title}</Modal.Title>
@@ -183,12 +172,6 @@ class ModalContent extends Component {
 								</tbody>
 							</Table>
 						</Modal.Body> 
-						
-
-						{/*<Modal.Footer>
-							<Button variant="secondary" onClick={this.onClose}>cancel</Button>
-							<Button variant="danger" onClick={this.delete}>delete</Button>
-						</Modal.Footer>*/}
 
 						<Footer 
 							onClose={this.onClose} 
@@ -196,7 +179,6 @@ class ModalContent extends Component {
 							delete={this.delete}
 							title={this.props.title} 
 						/>	
-								
 					</Modal>
 					
 				</aside>,

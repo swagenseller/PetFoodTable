@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Modal, Table } from 'react-bootstrap';
+import { Button, Modal} from 'react-bootstrap';
 
+// displays the Modal.Footer buttons based on props.title
 const Footer = (props) => {
     if(props.title ==="edit"){
         return(

@@ -130,6 +130,7 @@ const columns = [
     };
     
     // working on method to display numbers as money (string)
+    // on
     parseRows = (i) =>{
       const temp = this.state.rows[i];
       console.log(temp)  // can't return properties :(
@@ -137,7 +138,8 @@ const columns = [
       return temp;
     }
 
-    // working on the form part 
+    // need to rename
+    // closes the modal and resets the state 
     onResponse = () =>{
       this.setState({
         isOpen: false,
@@ -148,23 +150,18 @@ const columns = [
       });
     }
 
-   
+   // removes the selected row from the table
     onDelete = (rowIndex, iRowIndex) => {
       // removes from this.state.rows
       const rows = [...this.state.rows];
-      rows.splice(rowIndex, 1); //
+      rows.splice(rowIndex, 1); 
       // removes from initialRows
       const iRows = [...this.state.initialRows];
       iRows.splice(iRowIndex, 1)
+      
       this.setState({ 
-      /*  isOpen: false, */
         rows: rows, 
-        initialRows: iRows, 
-      /*  selectRow: null, 
-        rowToEdit: null, 
-        iRowToEdit: null,
-        title: '',*/
-        
+        initialRows: iRows,
       });
       this.onResponse();
     }
@@ -194,33 +191,7 @@ const columns = [
       
 
     }
-
-// rename this to select row
- /*   deleteRow = (column, row) => {
-      
-      const cellActions = [
-        {
-          icon: <span className="delete controls"> Delete </span>,
-          callback: () => {
-            const index = this.state.rows.indexOf(row)
-            //console.log("index is: " + index)
-            const iRowIndex = this.state.initialRows.indexOf(row)
-            this.setState({
-              isOpen: true,
-              selectRow: row,  
-              rowToEdit: index, 
-              iRowToEdit: iRowIndex, 
-               
-            });
-          }
-        }
-      ];
-      return column.key === "edit" ? cellActions : null;
-    }*/
-
-	
-		
-    
+	  
     render() {
       return (
         <div>

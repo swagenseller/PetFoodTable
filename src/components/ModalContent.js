@@ -28,28 +28,24 @@ class ModalContent extends Component {
 		this.state = {
 			title: '',
 			message: null,
-			selectRow: [],
+			selectRow: this.props.selectRow
 	
 		}
 		this.handleChange = this.handleChange.bind(this);
 
 	}
+	componentDidMount(){
+		console.log("mount")
+		this.setTitle();
+	}
 	
 
-	componentDidUpdate(prevProps){
-	
+	/*componentDidUpdate(prevProps){
 		if(this.props.isOpen !== prevProps.isOpen){
 			this.setTitle();
 		}
-	}
-	// fixes the initial selectRow 
-	// deappraciated 
-	componentWillReceiveProps(nextProps){
-		if(this.props.selectRow !== nextProps.selectRow){
-			this.setState({selectRow: nextProps.selectRow});
-		
-		}
-	}
+	}*/
+
 
 	handleChange(event){ 
 	
@@ -58,13 +54,13 @@ class ModalContent extends Component {
 		const {name, value} = event.target;
 		currentState[name] = value;
 		this.setState({selectRow: currentState});
-	
 	}
 	
 	// sets the state for Modal depending on whether the user clicked 
 	// edit or delete button
 	setTitle(){
 		
+		console.log(this.state.selectRow);
 		if(this.props.title === "edit") {
 			this.setState({
 				title: "Edit Row",
@@ -99,9 +95,6 @@ class ModalContent extends Component {
 
 	// need to refactor
 	render() {
-		if (!this.props.isOpen) {
-			return null;
-		} else {
 			return ReactDOM.createPortal(
 				<aside>
 					<Modal
@@ -184,7 +177,6 @@ class ModalContent extends Component {
 				</aside>,
 				document.body
 			);
-		}
 
 	} 
 } 

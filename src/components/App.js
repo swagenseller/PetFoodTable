@@ -102,6 +102,7 @@ const columns = [
               title: "delete",
                
             });
+            
           }
         }
 
@@ -204,8 +205,7 @@ const columns = [
             getCellActions={this.getCellActions}
             onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
           />
-          
-          <ModalContent
+          {this.state.isOpen && <ModalContent
               isOpen={this.state.isOpen}
               onResponse={this.onResponse}
               selectRow={this.state.selectRow}  
@@ -214,8 +214,19 @@ const columns = [
               onDelete={this.onDelete}
               title={this.state.title}
               onEdit={this.onEdit}
-              /*onGridRowsUpdated={this.onGridRowsUpdated}*/
-          />
+            />
+          }
+         {/*<ModalContent
+              isOpen={this.state.isOpen}
+              onResponse={this.onResponse}
+              selectRow={this.state.selectRow}  
+              rowToEdit={this.state.rowToEdit}
+              iRowToEdit={this.state.iRowToEdit}
+              onDelete={this.onDelete}
+              title={this.state.title}
+              onEdit={this.onEdit}
+              //onGridRowsUpdated={this.onGridRowsUpdated}
+         /> */}
         </div>
       );
     }

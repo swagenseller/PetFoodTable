@@ -2,22 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Modal, Table } from 'react-bootstrap';
 import Footer from './Footer';
-
-
-//function BaseModal(props){ // unused
-const BaseModal = (props) => {	
-	return(
-		<Modal
-			show={props.isOpen}
-			onHide={props.onClose}>
-			<Modal.Header closeButton onClick={props.onClose}>
-	{/*<Modal.Title>{props.title}</Modal.Title>*/}
-			</Modal.Header>
-				{props.children}
-
-		</Modal>
-	);
-}
+import ModBody from './ModBody';
 
 // will need to refactor this
 
@@ -35,7 +20,6 @@ class ModalContent extends Component {
 
 	}
 	componentDidMount(){
-		console.log("mount")
 		this.setTitle();
 	}
 	
@@ -87,10 +71,8 @@ class ModalContent extends Component {
 
 	// tells parent App.js to edit the row
 	edit = () =>{
-		//console.log("clicked this button")
-		//this.props.onGridRowsUpdated(this.props.rowToEdit, this.props.rowToEdit + 1,this.state.selectRow )
-		//this.props.onResponse();
-		this.props.onEdit(this.props.rowToEdit, this.props.iRowToEdit, this.state.selectRow);
+		const newRow = Object.create(this.state.selectRow);
+		this.props.onEdit(this.props.rowToEdit, this.props.iRowToEdit, newRow);
 	}
 
 	// need to refactor
@@ -104,8 +86,14 @@ class ModalContent extends Component {
 						<Modal.Header closeButton onClick={this.onClose}>
 							<Modal.Title>{this.state.title}</Modal.Title>
 						</Modal.Header>
-						{/*Do a crappy conditional if for now for deleting and editing*/ }
-						<Modal.Body>
+						
+						<ModBody
+							title={this.props.title}
+							selectRow={this.state.selectRow}
+							handleChange={this.handleChange}
+						/>
+
+						{/*<Modal.Body>
 							<p>{this.state.message}</p>
 							<Table striped bordered size="sm">
 								<thead>
@@ -164,7 +152,7 @@ class ModalContent extends Component {
 									
 								</tbody>
 							</Table>
-						</Modal.Body> 
+						</Modal.Body> */}
 
 						<Footer 
 							onClose={this.onClose} 

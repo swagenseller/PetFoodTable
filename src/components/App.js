@@ -3,16 +3,18 @@ import ReactDataGrid from 'react-data-grid';
 import ReactDOM from 'react-dom';
 import './../theme.css'
 import ModalContent from './ModalContent';
+import CustomEditor from './CustomEditor';
+import ApprovalCard from './ApprovalCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // come up with a away to not be hard coding this
 const columns = [
-    { key: "edit", name: "", width: 100, editable: false, sortable: false  },
-    { key: "name", name: "Name", editable: false, sortable: true, sortDescendingFirst: true },
-    { key: "brand", name: "Brand Name", editable: false, sortable: true },
-    { key: "pet", name: "Food For", editable: false, sortable: true },
-    { key: "price", name: "Price", editable: false, sortable: true }
+    { key: "edit", name: "", width: 100, editable: true, sortable: false  },
+    { key: "name", name: "Name", editable: true, sortable: true, sortDescendingFirst: true },
+    { key: "brand", name: "Brand Name", sortable: true, editor: CustomEditor},
+    { key: "pet", name: "Food For", editable: true, sortable: true },
+    { key: "price", name: "Price", editable: true, sortable: true }
   ];
   
   const initRows =  [
@@ -55,6 +57,11 @@ const columns = [
         return rows;
       });
     };
+
+    /*componentDidUpdate(prevState){
+      
+
+    }*/
     // no longer used, immediately deletes rows when icon clicked
    /* getCellActions = (column, row) => {
       const cellActions = [
@@ -170,41 +177,31 @@ const columns = [
     // takes to long for rerender to take effect?
     // need to use Array.map to remap the arrays
     onEdit = (rowIndex, iRowIndex, newRow) => {
-      const rows = [...this.state.rows];
-      rows[rowIndex] = newRow;
-      this.setState({rows})
-      //const iRows = [...this.state.initialRows];
-      //iRows[iRowIndex] = newRow;
-     /* this.setState(state => {
-        const list = state.rows.map((row, i) => {
-          if(i === rowIndex){
-            return newRow
-          } else {
-            return row;
-          }
-        });
-        return list;
-      }) */
-      console.log(this.state.rows);
+      const newRows = [...this.state.rows];
+
+      newRows[rowIndex] = newRow;
+      this.setState({rows: newRows})
       //this.onGridRowsUpdated(rowIndex, rowIndex+1, newRow);
       this.onResponse();
       
-      
-
     }
+
+
+
 	  
     render() {
       return (
         <div>
           <ReactDataGrid
             columns={columns}
-            rowGetter= {(i) => this.state.rows[i]}
+            rowGetter= {i => this.state.rows[i]}
             rowsCount={this.state.rows.length}
             onGridRowsUpdated={this.onGridRowsUpdated}
             enableCellsSelect={true}
             getCellActions={this.getCellActions}
             onGridSort= {(sortColumn, sortDirection) => this.setState({ rows: this.sortRows(sortColumn, sortDirection) }) }//{(sortColumn, sortDirection) => this.setState({ rows: this.test(sortColumn, sortDirection) }) }
           />
+
           {this.state.isOpen && <ModalContent
               isOpen={this.state.isOpen}
               onResponse={this.onResponse}
@@ -216,17 +213,12 @@ const columns = [
               onEdit={this.onEdit}
             />
           }
-         {/*<ModalContent
-              isOpen={this.state.isOpen}
-              onResponse={this.onResponse}
-              selectRow={this.state.selectRow}  
-              rowToEdit={this.state.rowToEdit}
-              iRowToEdit={this.state.iRowToEdit}
-              onDelete={this.onDelete}
-              title={this.state.title}
-              onEdit={this.onEdit}
-              //onGridRowsUpdated={this.onGridRowsUpdated}
-         /> */}
+          <ul>
+            {this.state.rows.map(function(d, idx){
+              return (<li key={idx}>{d.name}</li>)
+            })}
+          </ul>
+          
         </div>
       );
     }

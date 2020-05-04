@@ -91,69 +91,8 @@ class ModalContent extends Component {
 							title={this.props.title}
 							selectRow={this.state.selectRow}
 							handleChange={this.handleChange}
+							message={this.state.message}
 						/>
-
-						{/*<Modal.Body>
-							<p>{this.state.message}</p>
-							<Table striped bordered size="sm">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Brand Name</th>
-										<th>Food For</th>
-										<th>Price</th>
-									</tr>
-								</thead>
-								<tbody>
-									
-									<tr>
-										<td>
-											<input 
-												type="text" 
-												maxLength="100" 
-												minLength="1" 
-												name="name"
-												value={this.state.selectRow.name}
-												onChange={this.handleChange}
-											/>
-										</td>
-										<td>
-											<input 
-												type="text" 
-												maxLength="100" 
-												minLength="1" 
-												name="brand"
-												value={this.state.selectRow.brand}
-												onChange={this.handleChange}
-											/>
-										</td>
-										<td>
-											<input 
-												type="text"  
-												maxLength="10" 
-												minLength="1"
-												name="pet"
-												value={this.state.selectRow.pet}
-												onChange={this.handleChange}
-											/>
-										</td>
-										<td>
-											<input 
-												type="number" 
-												step="0.01" 
-												max="999.99" 
-												min="0" 
-												name="price"
-												value={this.state.selectRow.price}
-												onChange={this.handleChange}
-											/>
-										</td>
-									</tr>
-									
-								</tbody>
-							</Table>
-						</Modal.Body> */}
-
 						<Footer 
 							onClose={this.onClose} 
 							edit={this.edit} 

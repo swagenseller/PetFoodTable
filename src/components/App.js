@@ -213,11 +213,6 @@ const columns = [
               onEdit={this.onEdit}
             />
           }
-          <ul>
-            {this.state.rows.map(function(d, idx){
-              return (<li key={idx}>{d.name}</li>)
-            })}
-          </ul>
           
         </div>
       );

@@ -8,6 +8,7 @@ const ModBody= (props) => {
       display = (
 				<ul>
 					<li>
+					<span>Name:</span>
 						<input 
 							type="text" 
 							maxLength="100" 
@@ -18,6 +19,7 @@ const ModBody= (props) => {
 						/>
 					</li>
 					<li>
+						<span>Brand:</span>
 						<input 
 							type="text" 
 							maxLength="100" 
@@ -28,6 +30,7 @@ const ModBody= (props) => {
 						/>
 					</li>
 					<li>
+						<span>Pet:  </span>
 						<input 
 							type="text"  
 						  maxLength="10" 
@@ -38,6 +41,7 @@ const ModBody= (props) => {
 						/>
 					</li>
 						<li>
+							<span>Price:</span>
 							<input 
 								type="number" 
 								step="0.01" 
@@ -83,6 +87,7 @@ const ModBody= (props) => {
 
 		return (
 			<Modal.Body>
+				<p>{props.message}</p>
 				{display}
 			</Modal.Body>
 		);

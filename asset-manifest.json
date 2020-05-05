@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/PetFoodTable/static/css/main.36d257fb.chunk.css",
+    "main.js": "/PetFoodTable/static/js/main.43dbfd15.chunk.js",
+    "main.js.map": "/PetFoodTable/static/js/main.43dbfd15.chunk.js.map",
+    "runtime-main.js": "/PetFoodTable/static/js/runtime-main.4182dcb7.js",
+    "runtime-main.js.map": "/PetFoodTable/static/js/runtime-main.4182dcb7.js.map",
+    "static/css/2.de424728.chunk.css": "/PetFoodTable/static/css/2.de424728.chunk.css",
+    "static/js/2.b639ebdf.chunk.js": "/PetFoodTable/static/js/2.b639ebdf.chunk.js",
+    "static/js/2.b639ebdf.chunk.js.map": "/PetFoodTable/static/js/2.b639ebdf.chunk.js.map",
+    "index.html": "/PetFoodTable/index.html",
+    "precache-manifest.a18d32d74ce9ff3e5523a941f7f57144.js": "/PetFoodTable/precache-manifest.a18d32d74ce9ff3e5523a941f7f57144.js",
+    "service-worker.js": "/PetFoodTable/service-worker.js",
+    "static/css/2.de424728.chunk.css.map": "/PetFoodTable/static/css/2.de424728.chunk.css.map",
+    "static/css/main.36d257fb.chunk.css.map": "/PetFoodTable/static/css/main.36d257fb.chunk.css.map",
+    "static/js/2.b639ebdf.chunk.js.LICENSE.txt": "/PetFoodTable/static/js/2.b639ebdf.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4182dcb7.js",
+    "static/css/2.de424728.chunk.css",
+    "static/js/2.b639ebdf.chunk.js",
+    "static/css/main.36d257fb.chunk.css",
+    "static/js/main.43dbfd15.chunk.js"
+  ]
+}

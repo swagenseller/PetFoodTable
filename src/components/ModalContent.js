@@ -70,40 +70,40 @@ class ModalContent extends Component {
 	}
 
 	// tells parent App.js to edit the row
-	edit = () =>{
+	edit = () => {
 		const newRow = Object.create(this.state.selectRow);
 		this.props.onEdit(this.props.rowToEdit, this.props.iRowToEdit, newRow);
 	}
 
 	// need to refactor
 	render() {
-			return ReactDOM.createPortal(
-				<aside>
-					<Modal
-						show={this.props.isOpen}
-						onHide={this.onClose}
-					>
-						<Modal.Header closeButton onClick={this.onClose}>
-							<Modal.Title>{this.state.title}</Modal.Title>
-						</Modal.Header>
-						
-						<ModBody
-							title={this.props.title}
-							selectRow={this.state.selectRow}
-							handleChange={this.handleChange}
-							message={this.state.message}
-						/>
-						<Footer 
-							onClose={this.onClose} 
-							edit={this.edit} 
-							delete={this.delete}
-							title={this.props.title} 
-						/>	
-					</Modal>
+		return ReactDOM.createPortal(
+			<aside>
+				<Modal
+					show={this.props.isOpen}
+					onHide={this.onClose}
+				>
+					<Modal.Header closeButton onClick={this.onClose}>
+						<Modal.Title>{this.state.title}</Modal.Title>
+					</Modal.Header>
+							
+					<ModBody
+						title={this.props.title}
+						selectRow={this.state.selectRow}
+						handleChange={this.handleChange}
+						message={this.state.message}
+					/>
+					<Footer 
+						onClose={this.onClose} 
+						edit={this.edit} 
+						delete={this.delete}
+						title={this.props.title} 
+					/>	
+				</Modal>
 					
-				</aside>,
-				document.body
-			);
+			</aside>,
+			document.body
+		);
 
 	} 
 } 

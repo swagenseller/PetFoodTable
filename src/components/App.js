@@ -3,8 +3,6 @@ import ReactDataGrid from 'react-data-grid';
 import ReactDOM from 'react-dom';
 import './../theme.css'
 import ModalContent from './ModalContent';
-import CustomEditor from './CustomEditor';
-import ApprovalCard from './ApprovalCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 

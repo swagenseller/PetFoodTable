@@ -4,6 +4,7 @@ import { Button, Modal, Table } from 'react-bootstrap';
 
 
 
+
 // will need to refactor this
 
 class ApprovalCard extends Component {
@@ -84,7 +85,7 @@ class ApprovalCard extends Component {
 				<aside>
 					<div>
 						<div>
-							<h1>{this.state.title}</h1>
+							<h1 className="danger">{this.state.title}</h1>
 						</div>
 						{/*Do a crappy conditional if for now for deleting and editing*/ }
 						<div>

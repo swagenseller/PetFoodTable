@@ -8,7 +8,7 @@ const ModBody= (props) => {
       display = (
 				<ul>
 					<li>
-					<span>Name:</span>
+					<span variant="primary">Name:</span>
 						<input 
 							type="text" 
 							maxLength="100" 

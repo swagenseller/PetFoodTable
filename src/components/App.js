@@ -6,11 +6,12 @@ import ModalContent from './ModalContent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+
 // come up with a away to not be hard coding this
 const columns = [
     { key: "edit", name: "", width: 100, editable: true, sortable: false  },
     { key: "name", name: "Name", editable: true, sortable: true, sortDescendingFirst: true },
-    { key: "brand", name: "Brand Name", sortable: true, editor: CustomEditor},
+    { key: "brand", name: "Brand Name", sortable: true, editable: true},
     { key: "pet", name: "Food For", editable: true, sortable: true },
     { key: "price", name: "Price", editable: true, sortable: true }
   ];
@@ -94,7 +95,7 @@ const columns = [
     
         },
         {
-          icon: <span className="delete controls"> Delete </span>,
+          icon: <span className="danger"> Delete </span>,
           callback: () => {
             const index = this.state.rows.indexOf(row)
             //console.log("index is: " + index)
@@ -211,6 +212,7 @@ const columns = [
               onEdit={this.onEdit}
             />
           }
+          
           
         </div>
       );
